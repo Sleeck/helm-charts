@@ -66,7 +66,7 @@ app.kubernetes.io/component: "server"
 {{/* Cortex init-container command to check ElasticSearch availability */}}
 {{- define "cortex.initContainerCheckEsCurlOptions" -}}
 {{- if or (.Values.cortex.index.password) (.Values.cortex.index.k8sSecretName) -}}
-  -fkLsS -u '{{ .Values.cortex.index.username | default "elastic" }}:${CORTEX_ELASTICSEARCH_PASSWORD}' --out-null --no-keepalive
+  -fkLsS -u '{{ .Values.cortex.index.username | default "elastic" }}:'"${CORTEX_ELASTICSEARCH_PASSWORD}" --out-null --no-keepalive
 {{- else -}}
   -fkLsS --out-null --no-keepalive
 {{- end -}}
